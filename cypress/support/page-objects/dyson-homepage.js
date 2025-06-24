@@ -15,6 +15,8 @@ class DysonHomepage {
         cy.get(this.contactNumberLink)
             .should('be.visible')
             .should('have.text', ' 08003457788 ');
+            //we can also verify that the correct telephone protocol is in place for this
+            cy.get(this.contactNumberLink).should('have.attr', 'href', 'tel:08003457788');
     }
 
     verifyWebsiteLink() {
