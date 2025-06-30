@@ -1,3 +1,5 @@
+import 'cypress-axe';
+
 describe('template spec', () => {
 it('passes', () => {
 //Getting response from Manufacturers website
@@ -13,4 +15,15 @@ it('passes', () => {
  //     expect(response.body[0]).to.have.property('payload'); // Ensure the response has a payload property
     });
   });
+
+      //Verifies the accessibility
+  //  verifyAccessibility() {
+        it('should have no detectable accessibility violations', () => {
+            cy.visit('https://source.thenbs.com/manufacturer/dyson/nakAxHWxDZprdqkBaCdn4U/overview');
+            cy.injectAxe();
+            cy.checkA11y();
+        });
+   // }
+
+
 });
