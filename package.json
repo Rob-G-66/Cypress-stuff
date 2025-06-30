@@ -12,6 +12,8 @@
 
     "cypress": "^14.4.1",
 
+    "cypress-axe": "^1.6.0",
+
     "electron": "^36.4.0"
 
   }
