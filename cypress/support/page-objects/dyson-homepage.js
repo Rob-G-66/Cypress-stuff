@@ -89,10 +89,6 @@ class DysonHomepage {
                 cy.wrap(response.body).as('apiResponse'); // Save the response body for further assertions
                 const expectedText = "The only platform that helps you reach architects and specifiers directly, within the UK’s no1 specification writing tool";
                 expect(JSON.stringify(response.body)).to.include(expectedText);
-                //                   expect(response.body).to.have.property('payload'); // Ensure the response has a payload property
-                //                   expect(response.body.payload).to.have.property('manufacturer', 'Dyson');
-                //                   expect(response.body).to.have.property('status', 'success');
-                //                   expect(response.body).to.have.property('brands', 1013);
             })
 
     }
