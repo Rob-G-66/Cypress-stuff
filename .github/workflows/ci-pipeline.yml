@@ -1,4 +1,5 @@
 name: Cypress Tests
+run: npx cypress run --spec "cypress/e2e/1-getting-started/robs-first-test2.cy.js"
 
 on:
   push:
