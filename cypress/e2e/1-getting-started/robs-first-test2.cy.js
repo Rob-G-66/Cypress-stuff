@@ -1,6 +1,5 @@
 import NBSHomepage from '../../support/page-objects/nbs-homepage';
 import DysonHomepage from '../../support/page-objects/dyson-homepage';
-import 'cypress-axe';
 
 
 // Main test suite for NBS Source regression tests
@@ -18,12 +17,21 @@ describe('NBS Source Regression Tests', () => {
 
         // Select the Dyson result from the search results
         NBSHomepage.selectDysonResult();
-        cy.get('.css-15a5wy5').click(); //Skip the survey pop-up
+
+        // Check that the survey "Skip" button is present and click it if it exists
+        //       { timeout: 10000 }; // Increase the timeout to 10 seconds
+        //       cy.get('.css-15a5wy5').click(); //Skip the survey pop-up
+        cy.get('body').then($body => {
+            if ($body.find('.css-15a5wy5').length > 0) {
+                cy.get('.css-15a5wy5').click();
+            }
+        });
+
     });
 
     // Test to verify the Dyson page URL and H1 text
     it('#1 & #3 - Should verify Dyson page URL, and H1 text', () => {
-        DysonHomepage.verifyDysonPage
+        DysonHomepage.verifyDysonPage()
     });
 
     // Test to verify the contact number on the Dyson page
@@ -64,24 +72,11 @@ describe('NBS Source Regression Tests', () => {
         DysonHomepage.verifyDysonNavigationBar();
     });
 
-    // Test to verify the API Response
-    it('API Outside of the dyson-homepage.js', () => {
-        cy.request({
-            method: 'GET',
-            url: 'https://manufacturers.thenbs.com/nbs-source/',
-            timeout: 60000
-        })
-            .then((response) => {
-                expect(response.status).to.eq(200); // Check for a 200 OK response
-                //          expect(response.body).to.be.an('array'); // Ensure the response body is an array
-                //                   expect(response.body).to.have.property('payload'); // Ensure the response has a payload property
-                //                   expect(response.body.payload).to.have.property('manufacturer', 'Dyson');
-                //                   expect(response.body).to.have.property('status', 'success');
-                //                   expect(response.body).to.have.property('brands', 1013);
-            })
-        //   })
-    });
 
+    // Test to verify page snapshot for visual regression
+    it('#10 - Should match the snapshot', () => {
+        DysonHomepage.VerifyDysonManufacturerVisualRegression();
+    });
 
 
 

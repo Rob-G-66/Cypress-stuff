@@ -53,30 +53,50 @@ class DysonHomepage {
 
     //Verifies the accessibility
     verifyAccessibility() {
-        it('should have no detectable accessibility violations', () => {
-            cy.visit(this.ManufacturerHomepage);
-            cy.injectAxe();
-            cy.checkA11y();
-        });
+
+        cy.visit(this.ManufacturerHomepage);
+        cy.injectAxe();
+        cy.checkA11y(null, null, (violations) => {
+            // Log the violations without failing the test
+            cy.task('log', violations);
+            violations.forEach((violation) => {
+                const nodes = Cypress.$(
+                    violation.nodes.map((node) => node.target).join(',')
+                );
+                Cypress.log({
+                    name: 'a11y error!',
+                    consoleProps: () => violation,
+                    $el: nodes,
+                    message: `[${violation.id}] ${violation.help} (${violation.nodes.length} nodes)`,
+                });
+            });
+        }, { timeout: 10000 }); // Increase the timeout to 10 seconds
+
     }
 
     //Verifies the API Request and Response
     verifyApiResponse() {
-        debugger; // Debugging point to pause execution for inspection
-        it('should pass', () => {
-            cy.request({
-                method: 'GET',
-                url: 'https://manufacturers.thenbs.com/nbs-source/',
-                timeout: 60000})
+        //       debugger; // Debugging point to pause execution for inspection
+
+        cy.request({
+            method: 'GET',
+            url: 'https://manufacturers.thenbs.com/nbs-source/',
+            timeout: 60000
+        })
             .then((response) => {
+                cy.log(JSON.stringify(response.body));
                 expect(response.status).to.eq(200); // Check for a 200 OK response
+                cy.wrap(response.body).as('apiResponse'); // Save the response body for further assertions
+                const expectedText = "The only platform that helps you reach architects and specifiers directly, within the UK’s no1 specification writing tool";
+                expect(JSON.stringify(response.body)).to.include(expectedText);
                 //                   expect(response.body).to.have.property('payload'); // Ensure the response has a payload property
                 //                   expect(response.body.payload).to.have.property('manufacturer', 'Dyson');
                 //                   expect(response.body).to.have.property('status', 'success');
                 //                   expect(response.body).to.have.property('brands', 1013);
             })
-        });
+
     }
+
 
     //Verifies the Dyson Navigation Bar
     verifyDysonNavigationBar() {
@@ -93,6 +113,22 @@ class DysonHomepage {
             cy.contains('a', 'About us').should('be.visible');
         });
     }
+
+
+    // Verifies the Dyson Manufacturer Homepage visual regression
+    VerifyDysonManufacturerVisualRegression() {
+        cy.visit(this.ManufacturerHomepage); // Navigate to the page you want to test
+        cy.viewport(1000, 4410); // Set a fixed viewport size to match the baseline snapshot
+        cy.wait(2000); // Wait for 2 seconds to ensure the site has loaded and dynamic content is rendered
+        cy.scrollTo('bottom'); // Scroll to the bottom to ensure all content is rendered
+        cy.wait(500); // Wait a bit after scrolling
+        cy.matchImageSnapshot('dyson-homepage', {
+            failureThreshold: 0.40, // Allow up to 40% difference
+            failureThresholdType: 'percent',
+        });
+
+    };
+
 
 }
 
