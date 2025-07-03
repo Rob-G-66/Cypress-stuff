@@ -1,5 +1,4 @@
 name: Cypress Tests
-run: npx cypress run --spec "cypress/e2e/1-getting-started/robs-first-test2.cy.js"
 
 on:
   push:
@@ -24,4 +23,4 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npx cypress run --spec "cypress/e2e/1-getting-started/robs-first-test2.cy.js"
