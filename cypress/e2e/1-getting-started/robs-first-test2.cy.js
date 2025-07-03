@@ -19,13 +19,7 @@ describe('NBS Source Regression Tests', () => {
         NBSHomepage.selectDysonResult();
 
         // Check that the survey "Skip" button is present and click it if it exists
-        //       { timeout: 10000 }; // Increase the timeout to 10 seconds
-        //       cy.get('.css-15a5wy5').click(); //Skip the survey pop-up
-        cy.get('body').then($body => {
-            if ($body.find('.css-15a5wy5').length > 0) {
-                cy.get('.css-15a5wy5').click();
-            }
-        });
+        DysonHomepage.checkAndSkipSurvey(); 
 
     });
 
