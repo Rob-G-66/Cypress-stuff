@@ -10,6 +10,8 @@
 
   "devDependencies": {
 
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
+
     "axe-core": "^4.10.3",
 
     "cypress": "14.4.1",
