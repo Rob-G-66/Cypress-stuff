@@ -9,7 +9,7 @@ class DysonHomepage {
     SourceLogoLink = '.left > app-product-logo-with-name > .wrapper'; // Selector for the NBS Source logo link
     ManufacturerHomepage = 'https://source.thenbs.com/manufacturer/dyson/nakAxHWxDZprdqkBaCdn4U/overview'; // Manufacturer homepage URL
     DysonNavigationBar = '.mat-mdc-tab-links'; // Selector for the navigation bar on the Dyson page
-    //   APIEndPoint = 'https://manufacturers.thenbs.com/products/nbs-source'; // API endpoint for Request Response test
+    SkipButton = '.css-15a5wy5'; // Selector for the "Skip" button on the survey pop-up
 
     // Actions
     //-------------
@@ -19,8 +19,8 @@ class DysonHomepage {
     //       cy.get('.css-15a5wy5').click(); //Skip the survey pop-up
     checkAndSkipSurvey() {
         cy.get('body').then($body => {
-            if ($body.find('.css-15a5wy5').length > 0) {
-                cy.get('.css-15a5wy5').click();
+            if ($body.find(this.SkipButton).length > 0) {   // Check if the Skip button exists i.e. > 0
+                cy.get(this.SkipButton).click();            // and if it does, then click it
             }
         });
     }
