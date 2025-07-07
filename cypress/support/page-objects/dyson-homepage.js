@@ -26,10 +26,15 @@ class DysonHomepage {
     }
 
     // Verifies that the current URL and page header are correct for Dyson
-    verifyDysonPage() {
+    verifyDysonHomepageURL() {
         cy.url().should('include', this.dysonUrlPart); // Check URL contains Dyson path
+    }
+
+    // Verifies that the  page title is correct on the Dyson homepage
+    verifyDysonHomepageTitle() {
         cy.get(this.dysonHeader).should('have.text', 'Dyson'); // Check H1 text is 'Dyson'
     }
+    
 
     // Verifies the contact number link is visible, has correct text, and correct tel: protocol
     verifyContactNumber() {

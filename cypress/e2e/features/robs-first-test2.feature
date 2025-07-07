@@ -4,7 +4,7 @@ Feature: Dyson Manufacturer Page
     Given I visit the NBS Source homepage
     When I search for "Dyson"
     And I select the Dyson result
-    Then the URL should include "/manufacturer/dyson/nakAxHWxDZprdqkBaCdn4U/overview"
-    And the page header should be "Dyson"
+    Then the URL will contain "/manufacturer/dyson/nakAxHWxDZprdqkBaCdn4U/overview"
+    And the page header will be "Dyson"
 
     
