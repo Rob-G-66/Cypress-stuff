@@ -6,3 +6,5 @@ Feature: Dyson Manufacturer Page
     And I select the Dyson result
     Then the URL should include "/manufacturer/dyson/nakAxHWxDZprdqkBaCdn4U/overview"
     And the page header should be "Dyson"
+
+    
