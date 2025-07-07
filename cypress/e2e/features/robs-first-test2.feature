@@ -1,10 +1,13 @@
 Feature: Dyson Manufacturer Page
+  Background: I am on the dyson manufacturer homepage
+    Given I am on the dyson manufacturer homepage "Dyson"
 
-  Scenario: Verify Dyson page URL and H1 text
-    Given I visit the NBS Source homepage
-    When I search for "Dyson"
-    When I select the Dyson result
+
+  Scenario: Verify Dyson homepage URL is correct
     Then the URL should include "/manufacturer/dyson/nakAxHWxDZprdqkBaCdn4U/overview"
-    Then the page header should be "Dyson"
+
+    Scenario: Verify Dyson homepage title is correct
+    Then the h1 title is correct "Dyson"
+
 
     
