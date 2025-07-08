@@ -32,6 +32,8 @@ module.exports = defineConfig({
         })
       );
 
+      addMatchImageSnapshotPlugin(on); //  <----- move this here
+      
       return config;
     },
     // Run both .cy.js and .feature files
